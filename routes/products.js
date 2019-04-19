@@ -23,6 +23,9 @@ router.get('/',(req, res) => {
    
   //route for insert data
   router.post('/save',(req, res) => {
+
+    console.log(req.body);
+
     let data = {product_name: req.body.product_name, product_price: req.body.product_price};
     let sql = "INSERT INTO product SET ?";
     let query = conn.query(sql, data,(err, results) => {
@@ -35,7 +38,10 @@ router.get('/',(req, res) => {
   router.post('/update',(req, res) => {
     let sql = "UPDATE product SET product_name='"+req.body.product_name+"', product_price='"+req.body.product_price+"' WHERE product_id="+req.body.id;
     let query = conn.query(sql, (err, results) => {
-      if(err) throw err;
+      if(err) {
+        console.log("Update Error:",err);
+        throw err;
+    }
       res.redirect('/');
     });
   });
