@@ -23,14 +23,7 @@ const conn=require('./dbconnection');
 //middleware for products url
 app.use('/',products);
  
-//Create connection
-// const conn = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '',
-//   database: 'crud_db'
-// });
- 
+
 //connect to database
 conn.connect((err) =>{
   if(err) throw err;

@@ -1,14 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
+const conn=require('../dbconnection');
 
-const conn = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'crud_db'
-  });
-   
+  
 
 //route for homepage
 router.get('/',(req, res) => {
@@ -25,13 +20,13 @@ router.get('/',(req, res) => {
   router.post('/save',(req, res) => {
 
     console.log('req= ',req.body);
-
-    /*let data = {product_name: req.body.product_name, product_price: req.body.product_price};
+    //error here cant get req.body.product._name
+    let data = {product_name: req.body.product_name, product_price: req.body.product_price};
     let sql = "INSERT INTO product SET ?";
     let query = conn.query(sql, data,(err, results) => {
       if(err) throw err;
       res.redirect('/');
-    });*/
+    });
 
   });
    
