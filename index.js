@@ -15,6 +15,7 @@ const bodyParser = require('body-parser');
 //use mysql database
 const mysql = require('mysql');
 const app = express();
+<<<<<<< HEAD
 
 //import products route
 const products = require('./routes/products');
@@ -22,6 +23,16 @@ const conn=require('./dbconnection');
 
 //middleware for products url
 app.use('/',products);
+=======
+ 
+//Create connection
+const conn = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'crud_db'
+});
+>>>>>>> parent of 409eca1... moving the router logic to router folder
  
 
 //connect to database
@@ -39,7 +50,44 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //set public folder as static folder for static file
 app.use('/assets',express.static(__dirname + '/public'));
  
-
+//route for homepage
+app.get('/',(req, res) => {
+  let sql = "SELECT * FROM product";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.render('product_view',{
+      results: results
+    });
+  });
+});
+ 
+//route for insert data
+app.post('/save',(req, res) => {
+  let data = {product_name: req.body.product_name, product_price: req.body.product_price};
+  let sql = "INSERT INTO product SET ?";
+  let query = conn.query(sql, data,(err, results) => {
+    if(err) throw err;
+    res.redirect('/');
+  });
+});
+ 
+//route for update data
+app.post('/update',(req, res) => {
+  let sql = "UPDATE product SET product_name='"+req.body.product_name+"', product_price='"+req.body.product_price+"' WHERE product_id="+req.body.id;
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.redirect('/');
+  });
+});
+ 
+//route for delete data
+app.post('/delete',(req, res) => {
+  let sql = "DELETE FROM product WHERE product_id="+req.body.product_id+"";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+      res.redirect('/');
+  });
+});
  
 //server listening
 app.listen(8000, () => {
