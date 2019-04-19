@@ -4,9 +4,6 @@
  * tut from http://mfikri.com/en/blog/nodejs-mysql-crud
  */
 
-//import products route
-const products = require('./routes/products');
-
 //use path module
 const path = require('path');
 //use express module
@@ -19,18 +16,20 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const app = express();
 
-
+//import products route
+const products = require('./routes/products');
+const conn=require('./dbconnection');
 
 //middleware for products url
 app.use('/',products);
  
 //Create connection
-const conn = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'crud_db'
-});
+// const conn = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: '',
+//   database: 'crud_db'
+// });
  
 //connect to database
 conn.connect((err) =>{

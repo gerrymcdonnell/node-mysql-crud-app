@@ -24,14 +24,15 @@ router.get('/',(req, res) => {
   //route for insert data
   router.post('/save',(req, res) => {
 
-    console.log(req.body);
+    console.log('req= ',req.body);
 
-    let data = {product_name: req.body.product_name, product_price: req.body.product_price};
+    /*let data = {product_name: req.body.product_name, product_price: req.body.product_price};
     let sql = "INSERT INTO product SET ?";
     let query = conn.query(sql, data,(err, results) => {
       if(err) throw err;
       res.redirect('/');
-    });
+    });*/
+
   });
    
   //route for update data
